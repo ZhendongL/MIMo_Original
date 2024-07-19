@@ -103,7 +103,7 @@ def main():
 
     env_name = 'selfbody'
     algorithm = 'PPO'  # TD3  PPO
-    save_model = 'selfbody' + algorithm+'version1.0'
+    save_model = 'selfbody' + algorithm+'version1.1'
     load_model = None
     save_every = 100000
     train_for = 250000  #500000 1000000
