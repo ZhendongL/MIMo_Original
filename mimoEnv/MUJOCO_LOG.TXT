@@ -1,0 +1,15 @@
+Tue Dec 12 22:02:43 2023
+WARNING: OpenGL error 0x506 in or before mjr_makeContext
+
+Tue Dec 12 22:02:45 2023
+WARNING: OpenGL error 0x506 in or before mjr_makeContext
+
+Tue Dec 12 22:03:16 2023
+WARNING: OpenGL error 0x506 in or before mjr_makeContext
+
+Tue Dec 12 22:03:18 2023
+WARNING: OpenGL error 0x506 in or before mjr_makeContext
+
+Tue Dec 12 22:03:21 2023
+WARNING: OpenGL error 0x506 in or before mjr_makeContext
+
