@@ -233,6 +233,28 @@ class MIMoSelfBodyEnv(MIMoEnv):
         contact_with_target_geom = (target_geom_touch_max > 0)
         return contact_with_target_geom
 
+    def find_touch_max(self, sensor_output):
+        touch_part = False
+        max_values = {}
+        for key, array in sensor_output.items():
+            np_array = np.array(array)  # Convert list to NumPy array
+            max_value = np.max(np_array)
+            if max_value > 0:
+                max_index = np.unravel_index(np.argmax(np_array), np_array.shape)
+                max_values[key] = (max_value, max_index)
+                self.other_part = self.model.body(self.model.geom(key).bodyid).name
+
+        # Now max_values contains all the keys with their max values and indices
+
+        # if max_values and all(k != self.target_geom for k in max_values):
+        #     touch_part=True
+        # for key, value in max_values.items():
+        # print(f"touch id (Key): {key}, Max Value: {value[0]},target id:{self.target_geom}")
+        # else:
+        #     print("max_values is empty or contains key 100")
+
+        return touch_part
+
     def compute_reward(self, achieved_goal, desired_goal, info):
         """ Computes the reward each step.
 
@@ -257,7 +279,10 @@ class MIMoSelfBodyEnv(MIMoEnv):
             np.max(self.touch.sensor_outputs[active_geom_codes[-1]]),
             np.max(self.touch.sensor_outputs[active_geom_codes[-2]])
         )
-        contact_with_fingers = (fingers_touch_max > 0)
+
+        touch_part_zzz = self.find_touch_max(self.touch.sensor_outputs)
+
+        contact_with_fingers =touch_part_zzz # (fingers_touch_max > 0)
 
         # compute reward:
         if info["is_success"]:
@@ -271,7 +296,7 @@ class MIMoSelfBodyEnv(MIMoEnv):
             self.touch_other+=1
         else:
             reward = -1
-            self.touch_none
+            self.touch_none+=1
 
         return reward
 
